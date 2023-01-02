@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:fyp_twentyfive/models/user.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
@@ -9,7 +8,7 @@ import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
 import '../../../providers/user_provider.dart';
-import 'package:fyp_twentyfive/pages/Menu Screen/home_screen.dart';
+import '../../../commons/widgets/bottombar.dart';
 class AuthService {
   void SignUpUser({
     required BuildContext context,
@@ -62,16 +61,51 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () async {
-            // SharedPreferences prefs = await SharedPreferences.getInstance(); //getting instance
-            // Provider.of<UserProvider>(context, listen: false).setUser(res.body); //saving data in app memory
-            // await prefs.setString(
-            //     "X-auth-token", jsonDecode(res.body)['token']); //setting token
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
-            // ShowSnakBar(
-            //   context,
-            //   'Account has been created! Login with the same credentials!',
-            // );
+            SharedPreferences prefs =
+                await SharedPreferences.getInstance(); //getting instance
+            Provider.of<UserProvider>(context, listen: false)
+                .setUser(res.body); //saving data in app memory
+            await prefs.setString(
+                "X-auth-token", jsonDecode(res.body)['token']); //setting token
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomBar(),
+              ),
+            );
           });
+    } catch (e) {
+      ShowSnakBar(context, e.toString());
+    }
+  }
+
+  void getUSerData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+      var tokenRes = await http.post(Uri.parse('$uri/auth/api/tokenisValid'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token,
+          });
+      var response = jsonDecode(tokenRes.body);
+      if (response == true) {
+        http.Response userRes = await http.get(
+          Uri.parse('$uri/auth/'),
+        );
+        headers:
+        <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        };
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+      }
     } catch (e) {
       ShowSnakBar(context, e.toString());
     }

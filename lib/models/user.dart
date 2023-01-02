@@ -30,10 +30,10 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       map['_id'] ?? '',
-      map['name'] ?? '',
+      map['firstname'] ?? '',
+      map['lastname'] ?? '',
       map['email'] ?? '',
       map['password'] ?? '',
-      map['address'] ?? '',
       map['type'] ?? '',
       map['token'] ?? '',
     );
