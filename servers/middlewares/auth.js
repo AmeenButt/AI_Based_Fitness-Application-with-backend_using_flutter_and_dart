@@ -15,4 +15,19 @@ const auth = async(req, res, next) => {
         res.status(500).json({error:error.message});
     }
 }
+const sendVerifyEmail = async(name, email, user_id) =>{
+    try {
+        nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth:{
+
+            }
+        })
+    } catch (err) {
+        res.status(500).json({error:error.message});
+    }
+}
 module.exports = auth;

@@ -10,7 +10,7 @@ class TopButtons extends StatefulWidget {
 class _TopButtonsState extends State<TopButtons> {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
         AccountButton(text: 'Support', ontap: (){},),
         AccountButton(text: 'Logout', ontap: (){},),
