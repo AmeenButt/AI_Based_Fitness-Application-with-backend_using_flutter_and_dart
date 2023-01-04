@@ -72,9 +72,9 @@ class _PoseDetectionPageState extends State<PoseDetectionPage> {
           // image display size is scaled to 360x360 with retaining aspect ratio
           if (state.notFromLive) {
             if (originalSize.aspectRatio > 1) {
-              size = Size(360.0, 360.0 / originalSize.aspectRatio);
+              size = Size(1280.0, 720.0 / originalSize.aspectRatio);
             } else {
-              size = Size(360.0 * originalSize.aspectRatio, 360.0);
+              size = Size(1280.0 * originalSize.aspectRatio, 720.0);
             }
           }
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fyp_twentyfive/pages/Menu%20Screen/ai_based_detector.dart';
 import 'package:fyp_twentyfive/pages/Menu%20Screen/designed_for_you.dart';
 import 'package:fyp_twentyfive/pages/Menu%20Screen/suggested_exercises_for_you.dart';
-
+import 'package:fyp_twentyfive/pages/Menu%20Screen/second_row_suggested_exercises.dart';
+import 'package:fyp_twentyfive/pages/Menu%20Screen/lose-fat.dart';
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
@@ -44,6 +45,9 @@ class _MenuScreen extends State<MenuScreen> {
             ),
             DesignedForYou(),
             // Exercises
+            SizedBox(
+              height: 10,
+            ),
             Padding(padding: EdgeInsets.only(left: 10),
               child: Text("Exercises Suggested For You",
                 style: TextStyle(
@@ -54,6 +58,26 @@ class _MenuScreen extends State<MenuScreen> {
               height: 10,
             ),
             SuggestedExercises(),
+            SizedBox(
+              height: 10,
+            ),
+            SuggestedExercises2(),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(padding: EdgeInsets.only(left: 10),
+              child: Text("Cardio",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                ),),),
+            SizedBox(
+              height: 10,
+            ),
+            CardioExercises(),
+            SizedBox(
+              height: 10,
+            ),
           ],
         ));
   }
